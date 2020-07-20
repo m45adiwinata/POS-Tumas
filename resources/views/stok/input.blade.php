@@ -11,24 +11,24 @@
     </div>
     <div class="row">
         <div class="col-md-11">
-            <form class="form" method="POST" action="{{route('stok.store')}}">
+            <div class="form">
                 @csrf
+                <div class="form-group row">
+                    <label for="nama_barang" class="col-sm-2 col-form-label">Nama Barang</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" name="nama_barang" id="nama_barang">
+                    </div>
+                </div>
                 <div class="form-group row">
                     <label for="barcode" class="col-sm-2 col-form-label">Barcode</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="barcode" id="barcode">
+                        <input type="text" class="form-control" name="barcode" id="barcode" autofocus>
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="kode" class="col-sm-2 col-form-label">Kode Barang</label>
                     <div class="col-sm-10">
                         <input type="text" class="form-control" name="kode" id="kode">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="nama_barang" class="col-sm-2 col-form-label">Nama Barang</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" name="nama_barang" id="nama_barang">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -46,19 +46,19 @@
                 <div class="form-group row">
                     <label for="h_pokok" class="col-sm-2 col-form-label">Harga Pokok</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="h_pokok" id="h_pokok">
+                        <input type="number" class="form-control" name="h_pokok" id="h_pokok">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="h_grosir" class="col-sm-2 col-form-label">Harga Jual Grosir</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="h_grosir" id="h_grosir">
+                        <input type="number" class="form-control" name="h_grosir" id="h_grosir">
                     </div>
                 </div>
                 <div class="form-group row">
                     <label for="h_ecer" class="col-sm-2 col-form-label">Harga Jual Eceran</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" name="h_ecer" id="h_ecer">
+                        <input type="number" class="form-control" name="h_ecer" id="h_ecer">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-success" id="submit">Submit</button>
-            </form>
+            </div>
         </div>
         <div class="col-md">
             
@@ -78,21 +78,36 @@
 @endsection
 @section('script')
 <script>
-    // $(document).ready(function(){
-    //     $('#submit').click(function() {
-    //         let data = {
-    //             barcode: $('#barcode').val(),
-    //             kode: $('#kode').val(),
-    //             nama_barang: $('#nama_barang').val(),
-    //             kategori: $('#kategori').val(),
-    //             suplier: $('#suplier').val(),
-    //             tgl_beli: $('#tgl_beli').val(),
-    //             tgl_kadaluarsa: $('#tgl_kadaluarsa').val()
-    //         };
-    //         $.get('/stok/masuk/'+data, function(x) {
-    //             console.log(x);
-    //         });
-    //     });
-    // });
+    $(document).ready(function(){
+        $('#barcode').keypress(function (e) {
+            if (e.keyCode == 13) {
+                $.get('/stok/get-data/' + $(this).val(), function(data) {
+                    console.log(data);
+                    $('#nama_barang').val(data.nama_barang);
+                    $('#kode').val(data.kode);
+                    $('#kategori').val(data.kategori);
+                    $('#kode').val(data.kode);
+                    $('#suplier').val(data.suplier);
+                    $('#h_pokok').val(data.h_pokok);
+                    $('#h_grosir').val(data.h_grosir);
+                    $('#h_ecer').val(data.h_ecer);
+                    $('#tgl_beli').val(data.tgl_beli);
+                    $('#h_pokok').focus();
+                });
+                return false;
+            }
+        });
+        $('#submit').click(function() {
+            let barcode = $('#barcode').val();
+            let kode = $('#kode').val();
+            let nama_barang = $('#nama_barang').val();
+            let kategori = $('#kategori').val();
+            let suplier = $('#suplier').val();
+            let tgl_beli = $('#tgl_beli').val();
+            $.get('/stok/masuk/'+data, function(x) {
+                console.log(x);
+            });
+        });
+    });
 </script>
 @endsection

@@ -84,9 +84,9 @@ class StokController extends Controller
         //
     }
 
-    public function masuk($data)
+    public function getData($barcode)
     {
-        $x = json_decode($data);
-        return json_encode($x);
+        $data = Stok::where('barcode', $barcode)->first();
+        return $data;
     }
 }

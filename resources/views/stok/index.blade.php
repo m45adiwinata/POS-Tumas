@@ -1,15 +1,15 @@
 @extends('layout')
 @section('content')
 <div class="container">
-    <div style="overflow-x:auto;">
-        <a class="btn btn-primary float-md-right" href="#">Tambah/Edit Data</a>
+    <a class="btn btn-primary float-md-right" href="/stok/create">Tambah/Edit Data</a>
+    <div style="width: 80vw; height:600px; overflow-x:auto;">
         <table class="table table-hover table-bordered text-left" style="font-size:14px;">
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Barcode</th>
                     <th scope="col">Kode</th>
-                    <th scope="col" style="width:400px;">Nama</th>
+                    <th scope="col">Nama</th>
                     <th scope="col">Suplier</th>
                     <th scope="col">Kategori</th>
                     <th scope="col">Satuan</th>

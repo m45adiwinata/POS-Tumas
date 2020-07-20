@@ -19,3 +19,4 @@ Route::get('/', function () {
 
 Route::resource('/stok', StokController::class);
 Route::get('/stok/masuk/{data}', 'StokController@masuk');
+Route::get('/stok/get-data/{barcode}', 'StokController@getData');
