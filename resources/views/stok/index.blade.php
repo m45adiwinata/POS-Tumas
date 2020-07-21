@@ -1,8 +1,19 @@
 @extends('layout')
 @section('content')
 <div class="container">
-    <a class="btn btn-primary float-md-right" href="/stok/create">Tambah/Edit Data</a>
-    <div style="width: 80vw; height:600px; overflow-x:auto;">
+    @include('header')
+    @if(session()->get('success'))
+    <div class="alert alert-success">
+        {{ session()->get('success') }}  
+    </div>
+    @endif
+    @if(session()->get('danger'))
+    <div class="alert alert-danger">
+        {{ session()->get('danger') }}
+    </div>
+    @endif
+    <a class="btn btn-primary float-md-left" href="/stok/create">Tambah/Edit Data</a>
+    <div style="width: 60vw; height:600px; overflow-x:auto;">
         <table class="table table-hover table-bordered text-left" style="font-size:14px;">
             <thead class="thead-dark">
                 <tr>

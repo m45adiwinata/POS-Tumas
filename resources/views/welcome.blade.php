@@ -1,14 +1,7 @@
 @extends('layout')
 @section('content')
 <div class="container">
-    <div class="row">
-        <div class="col-md-8">
-            
-        </div>
-        <div class="col-md text-right">
-            <a href="/stok">Admin</a>
-        </div>
-    </div>
+    @include('header')
     <div class="row">
         <div class="col-md-11">
             <div class="form-inline">
@@ -22,13 +15,13 @@
                 <div class="form-group mb-2 mx-sm-4">
                     <input type="number" class="form-control" name="jumlah" id="jumlah" placeholder="jumlah...">
                 </div>
-                <button type="submit" class="btn btn-success mb-2">Submit</button>
+                <button type="submit" class="btn btn-success mb-2">BAYAR</button>
             </div>
             <br>
             
         </div>
         <div class="col-md">
-            <div style="height:100px;overflow:auto;">
+            <div style="height:70vh;overflow:auto;">
                 <table id="pembelian" >
                     <tr>
                         <th>No</th>
@@ -39,6 +32,7 @@
                     </tr>
                 </table>
             </div>
+            Total Belanja <span class="float-right mx-1-right" id="totalbelanja"></span>
         </div>
     </div>
 </div>
@@ -46,9 +40,17 @@
 @section('script')
 <script>
     $(document).ready(function(){
+        var totalbelanja = 0;
         $('#barcode').keypress(function (e) {
             if (e.keyCode == 13) {
-                $('#jumlah').focus();
+                $.get('/stok/get-data/' + $('#barcode').val(), function(data) {
+                    if(data == "tidak ada") {
+                        alert("DATA BARANG TIDAK DITEMUKAN.");
+                    }
+                    else {
+                        $('#jumlah').focus();
+                    }
+                });
             }
             else {
                 e.target.value += e.key;
@@ -59,15 +61,22 @@
         $('#jumlah').keypress(function (e) {
             if (e.keyCode == 13) {
                 $.get('/stok/get-data/' + $('#barcode').val(), function(data) {
-                    $('#pembelian').append(
-                        '<tr>'+
-                        '<td>'+1+'</td>'+
-                        '<td>'+data.nama_barang+'</td>'+
-                        '<td>'+$('#jumlah').val()+'</td>'+
-                        '<td>'+data.h_ecer+'</td>'+
-                        '<td>'+($('#jumlah').val() * data.h_ecer)+'</td>'+
-                        '</tr>'
-                    );
+                    if(data == "tidak ada") {
+                        alert("DATA BARANG TIDAK DITEMUKAN.");
+                    }
+                    else {
+                        $('#pembelian').append(
+                            '<tr>'+
+                            '<td>'+1+'</td>'+
+                            '<td>'+data.nama_barang+'</td>'+
+                            '<td>'+$('#jumlah').val()+'</td>'+
+                            '<td>'+data.h_ecer+'</td>'+
+                            '<td>'+($('#jumlah').val() * data.h_ecer)+'</td>'+
+                            '</tr>'
+                        );
+                        totalbelanja += $('#jumlah').val() * data.h_ecer;
+                        $('#totalbelanja').html(formatRupiah(totalbelanja.toString(), 'Rp. '));
+                    }
                 });
             }
             else {
@@ -77,5 +86,22 @@
             return false;
         });
     });
+
+    function formatRupiah(angka, prefix){
+        var number_string = angka.replace(/[^,\d]/g, '').toString(),
+        split   		= number_string.split(','),
+        sisa     		= split[0].length % 3,
+        rupiah     		= split[0].substr(0, sisa),
+        ribuan     		= split[0].substr(sisa).match(/\d{3}/gi);
+
+        // tambahkan titik jika yang di input sudah menjadi angka ribuan
+        if(ribuan){
+            separator = sisa ? '.' : '';
+            rupiah += separator + ribuan.join('.');
+        }
+
+        rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+        return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+    }
 </script>
 @endsection

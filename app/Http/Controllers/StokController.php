@@ -36,7 +36,22 @@ class StokController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $data = new Stok;
+        $data->kode = $request->kode;
+        $data->barcode = $request->barcode;
+        $data->nama_barang = $request->nama_barang;
+        $data->kategori = $request->kategori;
+        $data->suplier = $request->suplier;
+        $data->satuan = $request->satuan;
+        $data->isi = $request->isi;
+        $data->h_pokok = $request->h_pokok;
+        $data->h_pokok_ecer = $request->h_pokok/$request->isi;
+        $data->h_grosir = $request->h_grosir;
+        $data->h_ecer = $request->h_ecer;
+        $data->jml_stok += $request->jumlah * $request->isi;
+        $data->save();
+
+        return redirect('/stok')->with('success', 'DATA BARANG TELAH MASUK.');
     }
 
     /**
@@ -70,7 +85,7 @@ class StokController extends Controller
      */
     public function update(Request $request, Stok $stok)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -87,6 +102,49 @@ class StokController extends Controller
     public function getData($barcode)
     {
         $data = Stok::where('barcode', $barcode)->first();
+        if ($data == null) {
+            $data = "tidak ada";
+        }
         return $data;
+    }
+
+    public function masuk(Request $request)
+    {
+        return "hello";
+    }
+
+    public function update2(Request $request, $barcode)
+    {
+        $data = Stok::where('barcode', $barcode)->update([
+            'kode' => $request->kode,
+            'nama_barang' => $request->nama_barang,
+            'kategori' => $request->kategori,
+            'suplier' => $request->suplier,
+            'satuan' => $request->satuan_grosir,
+            'satuan_ecer' => $request->satuan_ecer,
+            'isi' => $request->isi,
+            'h_pokok' => $request->h_pokok,
+            'h_ecer' => $request->h_ecer,
+            'tgl_beli' => $request->tgl_beli,
+            'jml_stok' => $request->jml_stok,
+            'stok_min' => $request->stok_min,
+            'stok_max' => $request->stok_max,
+        ]);
+        // $data->nama_barang = $request->nama_barang;
+        // $data->kategori = $request->kategori;
+        // $data->suplier = $request->suplier;
+        // $data->satuan = $request->satuan_grosir;
+        // $data->satuan_ecer = $request->satuan_ecer;
+        // $data->isi = $request->isi;
+        // $data->h_pokok = $request->h_pokok;
+        // $data->h_grosir = $request->h_grosir;
+        // $data->h_ecer = $request->h_ecer;
+        // $data->tgl_beli = $request->tgl_beli;
+        // $data->jml_stok = $request->jml_stok;
+        // $data->stok_min = $request->stok_min;
+        // $data->stok_max = $request->stok_max;
+        // $data->save();
+
+        return redirect('/stok')->with('success', 'DATA BARANG TELAH MASUK.');
     }
 }
