@@ -12,7 +12,7 @@
         {{ session()->get('danger') }}
     </div>
     @endif
-    <a class="btn btn-primary float-md-left" href="/stok/create">Tambah/Edit Data</a>
+    <a class="btn btn-primary float-md-left" href="/stok/create">Tambah/Edit Data</a><br><br>
     <div style="width: 60vw; height:600px; overflow-x:auto;">
         <table class="table table-hover table-bordered text-left" style="font-size:14px;">
             <thead class="thead-dark">

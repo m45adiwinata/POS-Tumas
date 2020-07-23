@@ -7,24 +7,24 @@
         <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/bootstrap-grid.min.css')}}">
         <link rel="stylesheet" href="{{asset('css/bootstrap-reboot.min.css')}}">
+        <link rel="stylesheet" href="{{asset('css/fontawesome/css/font-awesome.min.css')}}">
         <script src="{{asset('js/bootstrap.bundle.min.js')}}"></script>
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
-        <!-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> -->
         <link href="{{asset('select2/dist/css/select2.min.css')}}" rel="stylesheet" />
         <script src="{{asset('select2/dist/js/select2.min.js')}}"></script>
+        <script src="{{asset('Auto-Format-Currency-With-jQuery/simple.money.format.js')}}"></script>
         
         <title>Kasir Tumas</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
 
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Nunito', sans-serif;
+                font-family: Tahoma, Geneva, sans-serif;
                 font-weight: 200;
                 height: 100vh;
                 margin: 0;

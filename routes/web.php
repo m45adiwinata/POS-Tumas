@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+Route::get('/', 'WelcomeController@index');
 
 Route::resource('/stok', StokController::class);
 Route::get('/stok/masuk/{data}', 'StokController@masuk');
 Route::get('/stok/get-data/{barcode}', 'StokController@getData');
 Route::get('/stok/update/{barcode}', 'StokController@update2');
+Route::get('/stok/get-by-nama/{nama}', 'StokController@getByNama');
+Route::resource('/penjualan', PenjualanController::class);

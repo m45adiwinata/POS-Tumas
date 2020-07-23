@@ -43,12 +43,16 @@ class StokController extends Controller
         $data->kategori = $request->kategori;
         $data->suplier = $request->suplier;
         $data->satuan = $request->satuan;
+        $data->satuan_ecer = $request->satuan_ecer;
         $data->isi = $request->isi;
         $data->h_pokok = $request->h_pokok;
         $data->h_pokok_ecer = $request->h_pokok/$request->isi;
         $data->h_grosir = $request->h_grosir;
         $data->h_ecer = $request->h_ecer;
-        $data->jml_stok += $request->jumlah * $request->isi;
+        $data->tgl_beli = $request->tgl_beli;
+        $data->jml_stok = $request->jumlah * $request->isi;
+        $data->stok_min = $request->stok_min;
+        $data->stok_max = $request->stok_max;
         $data->save();
 
         return redirect('/stok')->with('success', 'DATA BARANG TELAH MASUK.');
@@ -115,6 +119,7 @@ class StokController extends Controller
 
     public function update2(Request $request, $barcode)
     {
+        // dd($request);
         $data = Stok::where('barcode', $barcode)->update([
             'kode' => $request->kode,
             'nama_barang' => $request->nama_barang,
@@ -130,21 +135,23 @@ class StokController extends Controller
             'stok_min' => $request->stok_min,
             'stok_max' => $request->stok_max,
         ]);
-        // $data->nama_barang = $request->nama_barang;
-        // $data->kategori = $request->kategori;
-        // $data->suplier = $request->suplier;
-        // $data->satuan = $request->satuan_grosir;
-        // $data->satuan_ecer = $request->satuan_ecer;
-        // $data->isi = $request->isi;
-        // $data->h_pokok = $request->h_pokok;
-        // $data->h_grosir = $request->h_grosir;
-        // $data->h_ecer = $request->h_ecer;
-        // $data->tgl_beli = $request->tgl_beli;
-        // $data->jml_stok = $request->jml_stok;
-        // $data->stok_min = $request->stok_min;
-        // $data->stok_max = $request->stok_max;
-        // $data->save();
 
-        return redirect('/stok')->with('success', 'DATA BARANG TELAH MASUK.');
+        return redirect('/stok')->with('success', 'DATA BARANG TELAH DIUBAH.');
+    }
+
+    public function getByNama(Request $request)
+    {
+        // dd($request);
+        if ($request->has('q')) {
+            $data = Stok::where('nama_barang', 'LIKE', '%'.$request->q.'%')->get();
+            return response()->json($data);
+        }
+    }
+
+    public function getAll()
+    {
+        $data = Stok::pluck('nama_barang', 'barcode');
+
+        return $data;
     }
 }
