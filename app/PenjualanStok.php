@@ -8,4 +8,5 @@ class PenjualanStok extends Model
 {
     protected $table = 'penjualan_stok';
     public $timestamps = false;
+    protected $guarded = [];
 }

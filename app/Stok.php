@@ -11,6 +11,7 @@ class Stok extends Model
     protected $casts = [
         'barcode' => 'string',
      ];
+     protected $guarded = [];
 
      public function penjualan()
      {

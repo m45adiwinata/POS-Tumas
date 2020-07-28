@@ -196,10 +196,10 @@
                             );
                             $('#invisible-form').append(
                                 '<div id="invis-row-'+id+'">'+
-                                    '<input type="hidden" name="barcode['+id+']" value="'+data.barcode+'">'+
-                                    '<input type="hidden" name="jumlah['+id+']" value="'+$('#jumlah').val()+'">'+
-                                    '<input type="hidden" name="harga['+id+']" value="'+data.h_grosir+'">'+
-                                    '<input type="hidden" name="total['+id+']" value="'+($('#jumlah').val() * data.h_grosir)+'">'+
+                                    '<input type="text" name="barcode['+id+']" value="'+data.barcode+'">'+
+                                    '<input type="number" name="jumlah['+id+']" value="'+$('#jumlah').val()+'">'+
+                                    '<input type="number" name="harga['+id+']" value="'+data.h_grosir+'">'+
+                                    '<input type="number" name="total['+id+']" value="'+($('#jumlah').val() * data.h_grosir)+'">'+
                                 '</div>'
                             );
                             belanjaan.push({
@@ -221,10 +221,10 @@
                             );
                             $('#invisible-form').append(
                                 '<div id="invis-row-'+id+'">'+
-                                    '<input type="hidden" name="barcode['+id+']" value="'+data.barcode+'">'+
-                                    '<input type="hidden" name="jumlah['+id+']" value="'+$('#jumlah').val()+'">'+
-                                    '<input type="hidden" name="harga['+id+']" value="'+data.h_ecer+'">'+
-                                    '<input type="hidden" name="total['+id+']" value="'+($('#jumlah').val() * data.h_ecer)+'">'+
+                                    '<input type="text" name="barcode['+id+']" value="'+data.barcode+'">'+
+                                    '<input type="number" name="jumlah['+id+']" value="'+$('#jumlah').val()+'">'+
+                                    '<input type="number" name="harga['+id+']" value="'+data.h_ecer+'">'+
+                                    '<input type="number" name="total['+id+']" value="'+($('#jumlah').val() * data.h_ecer)+'">'+
                                 '</div>'
                             );
                             belanjaan.push({

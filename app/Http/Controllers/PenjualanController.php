@@ -14,6 +14,7 @@ class PenjualanController extends Controller
         $data = new Penjualan;
         $data->total = $request->totalbelanja;
         $data->save();
+        $items = [];
         foreach ($request->barcode as $key => $bt) {
             $terjual = new PenjualanStok;
             $terjual->stok_barcode = $bt;
@@ -22,8 +23,20 @@ class PenjualanController extends Controller
             $terjual->total = $request->total[$key];
             $data->penjualanStok()->save($terjual);
             $stok = Stok::find($bt);
-            $stok->jml_stok -= $request->jumlah[$key];
+            $sisa_stok = $stok->jml_stok - intval($request->jumlah[$key]);
+            $stok->update([
+                'jml_stok' => $sisa_stok
+            ]);
+            $barang = Stok::find($bt);
+            array_push($items, [
+                'nama_barang' => $barang->nama_barang,
+                'jumlah' => $request->jumlah[$key],
+                'harga' => $request->harga[$key],
+                'total' => $request->total[$key]
+            ]);
+            // $stok->jml_stok -= intval($request->jumlah[$key]);
         }
+        
         
         return redirect('/');
     }
